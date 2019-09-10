@@ -1,5 +1,5 @@
 //
-// Created by IButskhrikidze on 9/10/19.
+// Created by irakli on 9/10/19.
 //
 
 #include <bits/stdc++.h>
@@ -110,6 +110,28 @@ private:
 
     }
 
+    Node *Next(T val, Node *root) {
+        if (root == nullptr) {
+            return root;
+        }
+        if (root->key <= val) {
+            Next(val, root->right);
+        } else {
+            Next(val, root->left);
+        }
+    }
+
+    Node *Pre(T val, Node *root) {
+        if (root == nullptr) {
+            return root;
+        }
+        if (root->key <= val) {
+            Next(val, root->right);
+        } else {
+            Next(val, root->left);
+        }
+    }
+
     void Delete(T val, Node *&root) {
         if (root->key == val) {
             if (root->left == nullptr && root->right == nullptr) {
@@ -176,11 +198,22 @@ public:
     T min() {
         return Find_min(Root)->key;
     }
+
+    //next of given element
+    T next(T x) {
+        return Next(x, Root)->key;
+    }
+
+    //previous of given element
+    T prev(T x) {
+        return Pre(x, Root)->key;
+    }
 };
 
 int main() {
     int n;
     cin >> n;
+
     BST<int> T;
 
     for (int i = 1; i <= n; i++) {
@@ -188,7 +221,9 @@ int main() {
         cin >> x;
         T.insert(x);
     }
-    T.del(5);
+    
     cout << T.max() << ' ' << T.min();
+
     return 0;
 }
+
