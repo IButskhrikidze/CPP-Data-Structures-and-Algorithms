@@ -53,26 +53,26 @@ function takes seven arguments. a, b, c are parameters of equation.
 vector<pair<int, int> > find_all_solution(int a, int b, int c, int lx, int rx, int ly, int ry) {
     vector<pair<int, int> > ans;
     pair<int, int> any = find_any_solution(a, b, c);
-    lx = any.first - ((any.first - lx) / b) * b;
-    rx = any.first - ((any.first - lx) / b) * b;
+    int lxx = any.first - ((any.first - lx) / b) * b;
+    int rxx = any.first - ((any.first - rx) / b) * b;
 
     ly = any.second + ((ly - any.second) / a) * a;
     ry = any.second + ((ry - any.second) / a) * a;
-    int lxx = (c - b * ly) / a;
-    int rxx = (c - b * ry) / a;
-    if (lxx > rxx) {
-        swap(lxx, rxx);
+    int lxxx = (c - b * ly) / a;
+    int rxxx = (c - b * ry) / a;
+    if (lxxx > rxxx) {
+        swap(lxxx, rxxx);
     }
-    lx = max(lx, lxx);
-    rx = min(rx, rxx);
+    lxx = max(lxx, lxxx);
+    rxx = min(rxx, rxxx);
 
-    if (lx > rx) {
+    if (lxx > rxx) {
         return ans;
     }
     int t = 0;
     int delt = (b < 0 ? 1 : -1);
-    while (lx - b * t <= rx) {
-        ans.push_back({lx - b * t, (c - a * (lx - b * t)) / b});
+    while (lxx - b * t <= rxx) {
+        ans.push_back({lxx - b * t, (c - a * (lxx - b * t)) / b});
         t += delt;
     }
     return ans;
