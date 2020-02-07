@@ -20,13 +20,13 @@ int main() {
 
     int dp[n][1 << n];
 
-    for(int i=0;i<n;i++){
-        for(int j=0;j<(1<<n);j++){
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < (1 << n); j++) {
             dp[i][j] = inf;
         }
     }
     for (int i = 1; i < n; i++) {
-        for(int j=1; j < n; j++) {
+        for (int j = 1; j < n; j++) {
             dp[i][1 ^ (1 << j)] = cost[0][i];
         }
     }
@@ -38,8 +38,8 @@ int main() {
                     if (j & (1 << k)) {
                         for (int p = 1; p < n; p++) {
                             if (p != k && (j & (1 << p))) {
-                                int mask = j ^ (1 << k);
-                                dp[k][j] = min(dp[p][mask]+cost[k][p], dp[k][j]);
+                                int mask = j ^(1 << k);
+                                dp[k][j] = min(dp[p][mask] + cost[k][p], dp[k][j]);
                             }
                         }
 
@@ -49,8 +49,8 @@ int main() {
         }
     }
 
-    for(int i=1;i<n;i++){
-        ans = min(ans, dp[i][(1<<n)-1] + cost[i][0]);
+    for (int i = 1; i < n; i++) {
+        ans = min(ans, dp[i][(1 << n) - 1] + cost[i][0]);
     }
 
     cout << ans;

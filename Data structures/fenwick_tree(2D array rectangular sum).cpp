@@ -7,8 +7,8 @@ using namespace std;
 int n, m, a[1001][1001], t[1001][1001];
 
 void Add(int x, int y, int val) {
-    for(int i=x; i < n; i |= (i+1)){
-        for(int j=y; j < m; j |= (j+1)) {
+    for (int i = x; i < n; i |= (i + 1)) {
+        for (int j = y; j < m; j |= (j + 1)) {
             t[i][j] += val;
         }
     }
@@ -16,8 +16,8 @@ void Add(int x, int y, int val) {
 
 int Prefix_sum(int x, int y) {
     int sm = 0;
-    for(int i = x; i >= 0; i = (i&(i+1)) - 1){
-        for(int j = y; j >= 0; j = (j&(j+1)) - 1) {
+    for (int i = x; i >= 0; i = (i & (i + 1)) - 1) {
+        for (int j = y; j >= 0; j = (j & (j + 1)) - 1) {
             sm += t[i][j];
         }
     }
@@ -32,8 +32,8 @@ int Sum(int x1, int y1, int x2, int y2) {
 int main() {
     cin >> n >> m;
 
-    for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
             cin >> a[i][j];
             Add(i, j, a[i][j]);
         }

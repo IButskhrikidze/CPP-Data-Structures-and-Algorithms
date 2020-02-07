@@ -32,7 +32,7 @@ long long binpow_iterative(long long a, long long n) {
     return res;
 }
 
-int main(){
+int main() {
     long long a, n;
     cin >> a >> n;
     cout << binpow_recursive(a, n) << endl;

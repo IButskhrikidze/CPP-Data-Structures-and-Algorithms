@@ -221,7 +221,7 @@ int main() {
         cin >> x;
         T.insert(x);
     }
-    
+
     cout << T.max() << ' ' << T.min();
 
     return 0;

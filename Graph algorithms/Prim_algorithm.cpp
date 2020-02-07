@@ -19,10 +19,11 @@ struct Edge {
 };
 
 int n, m, ans;
-set<Edge> st;
+set <Edge> st;
 vector<int> used;
-vector<Edge> mst;
-vector<vector<pair<int, int> > > G;
+vector <Edge> mst;
+vector <vector<pair < int, int>> >
+G;
 
 int main() {
     cin >> n >> m;
@@ -60,7 +61,7 @@ int main() {
     }
 
     cout << "MST weight is: " << ans << endl;
-    for(int i=0;i<mst.size();i++){
+    for (int i = 0; i < mst.size(); i++) {
         cout << mst[i].u << ' ' << mst[i].v << ' ' << mst[i].w << endl;
     }
 

@@ -5,10 +5,10 @@ using namespace std;
 const double inf = 1e9;
 
 int n;
-vector<pair<double, double> >Points;
+vector <pair<double, double>> Points;
 
-double cost(int i, int j){
-    return hypot(Points[i].first-Points[j].first, Points[i].second-Points[j].second);
+double cost(int i, int j) {
+    return hypot(Points[i].first - Points[j].first, Points[i].second - Points[j].second);
 }
 
 int main() {
@@ -28,7 +28,7 @@ int main() {
     }
     for (int i = 1; i < n; i++) {
         for (int j = 1; j < n; j++) {
-            dp[i][1 ^ (1 << j)] = cost(0,i);
+            dp[i][1 ^ (1 << j)] = cost(0, i);
         }
     }
 
@@ -40,7 +40,7 @@ int main() {
                         for (int p = 1; p < n; p++) {
                             if (p != k && (j & (1 << p))) {
                                 int mask = j ^(1 << k);
-                                dp[k][j] = min(dp[p][mask] + cost(k,p), dp[k][j]);
+                                dp[k][j] = min(dp[p][mask] + cost(k, p), dp[k][j]);
                             }
                         }
 
@@ -53,7 +53,7 @@ int main() {
     double ans = inf;
 
     for (int i = 1; i < n; i++) {
-        ans = min(ans, dp[i][(1 << n) - 1] + cost(i,0));
+        ans = min(ans, dp[i][(1 << n) - 1] + cost(i, 0));
     }
 
     cout << ans;

@@ -50,8 +50,8 @@ pair<int, int> find_any_solution(int a, int b, int c) {
 function takes seven arguments. a, b, c are parameters of equation.
 [lx, rx] and [ly, ry] are range of solutins
 */
-vector<pair<int, int> > find_all_solution(int a, int b, int c, int lx, int rx, int ly, int ry) {
-    vector<pair<int, int> > ans;
+vector <pair<int, int>> find_all_solution(int a, int b, int c, int lx, int rx, int ly, int ry) {
+    vector <pair<int, int>> ans;
     pair<int, int> any = find_any_solution(a, b, c);
     int lxx = any.first - ((any.first - lx) / b) * b;
     int rxx = any.first - ((any.first - rx) / b) * b;
@@ -82,7 +82,7 @@ int main() {
     int a, b, c, lx, rx, ly, ry;
     cin >> a >> b >> c >> lx >> rx >> ly >> ry;
 
-    vector<pair<int, int> > ans = find_all_solution(a, b, c, lx, rx, ly, ry);
+    vector <pair<int, int>> ans = find_all_solution(a, b, c, lx, rx, ly, ry);
     for (int i = 0; i < ans.size(); i++) {
         cout << ans[i].first << ' ' << ans[i].second << endl;
     }
