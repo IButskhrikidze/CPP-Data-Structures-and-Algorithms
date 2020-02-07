@@ -2,64 +2,89 @@
 
 using namespace std;
 
-int a, b, c, x, y, d;
-
 /*
 function takes four arguments. a and b are numbers of which GCD we need to find
 and x and y are argument references which should be satisfied condition ax+by=gcd(a, b).
 function returns GCD of a and b. also, it changes x and y respectively.
 */
-int Extended_GCD(int a, int b, int& x, int& y){
-    if(b == 0){
+int Extended_GCD(int a, int b, int &x, int &y) {
+    if (b == 0) {
         x = 1;
         y = 0;
         return a;
     }
     int x_1, y_1;
-    int d = Extended_GCD(b, a%b, x_1, y_1);
+    int d = Extended_GCD(b, a % b, x_1, y_1);
     x = y_1;
-    y = x_1 - (a/b)*y_1;;
+    y = x_1 - (a / b) * y_1;;
     return d;
 }
 
 
 /*
-function takes four arguments. a, b, c are coefficients of equation ax+by=c.
-num is number of solutions wich we need to find.
-function returns vector of pair which contains solutions.
+function takes three arguments. a, b, c are coefficients of equation ax+by=c.
+function returns pair of some solutions (x, y).
 */
-vector<pair<int, int> > Solve_linear(int a, int b, int c, int num = 1){
+pair<int, int> find_any_solution(int a, int b, int c) {
+    int x, y;
+    int d = Extended_GCD(abs(a), abs(b), x, y);
+
+    if (c % d != 0) {
+        return make_pair(0, 0);
+    }
+
+    if (a < 0) {
+        x *= -1;
+    }
+    if (b < 0) {
+        y *= -1;
+    }
+
+    x *= c / d;
+    y *= c / d;
+
+    return make_pair(x, y);
+}
+
+/*
+function takes seven arguments. a, b, c are parameters of equation.
+[lx, rx] and [ly, ry] are range of solutins
+*/
+vector<pair<int, int> > find_all_solution(int a, int b, int c, int lx, int rx, int ly, int ry) {
     vector<pair<int, int> > ans;
-    d = Extended_GCD(abs(a), abs(b), x, y);
-    
-    if(c%d != 0){
-        cout << "No Solution!";
+    pair<int, int> any = find_any_solution(a, b, c);
+    lx = any.first - ((any.first - lx) / b) * b;
+    rx = any.first - ((any.first - lx) / b) * b;
+
+    ly = any.second + ((ly - any.second) / a) * a;
+    ry = any.second + ((ry - any.second) / a) * a;
+    int lxx = (c - b * ly) / a;
+    int rxx = (c - b * ry) / a;
+    if (lxx > rxx) {
+        swap(lxx, rxx);
+    }
+    lx = max(lx, lxx);
+    rx = min(rx, rxx);
+
+    if (lx > rx) {
         return ans;
     }
-
-    if(a<0){
-        x*=-1;
-    }
-    if(b<0){
-        y*=-1;
-    }
-
-    x*=c/d;
-    y*=c/d;
-
-    for(int i=0;i<num;i++){
-        ans.push_back({y + (a/d)*i, x-(b/d)*i});
+    int t = 0;
+    int delt = (b < 0 ? 1 : -1);
+    while (lx - b * t <= rx) {
+        ans.push_back({lx - b * t, (c - a * (lx - b * t)) / b});
+        t += delt;
     }
     return ans;
 }
 
-int main(){
-    cin >> a >> b >> c;
-    vector<pair<int,int> > ans = Solve_linear(a, b, c, 10);
+int main() {
+    int a, b, c, lx, rx, ly, ry;
+    cin >> a >> b >> c >> lx >> rx >> ly >> ry;
 
-    for(int i=0;i<ans.size();i++){
+    vector<pair<int, int> > ans = find_all_solution(a, b, c, lx, rx, ly, ry);
+    for (int i = 0; i < ans.size(); i++) {
         cout << ans[i].first << ' ' << ans[i].second << endl;
     }
-
     return 0;
 }
