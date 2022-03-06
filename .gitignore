@@ -33,3 +33,6 @@
 *.app
 *out
 *.idea
+CMakeLists.txt
+main.cpp
+cmake-build-debug/
